@@ -1,5 +1,6 @@
 import React from 'react';
 import {AppBar, Box, Slide, Toolbar, Typography, useScrollTrigger, useTheme} from "@mui/material";
+import {orange} from "@mui/material/colors";
 
 const Appbar = () => {
     const theme = useTheme();
@@ -9,8 +10,8 @@ const Appbar = () => {
 
     return (
         <Slide appear={false} direction="down" in={!trigger}>
-        <AppBar elevation={0} color={'transparent'} position={'sticky'}>
-            <Toolbar>
+        <AppBar elevation={0} position={'sticky'}>
+            <Toolbar disableGutters={true}>
                 <Typography flexGrow={1} fontFamily={theme.typography.secondFontFamily} variant={'h5'}>
                     Web developer
                 </Typography>
