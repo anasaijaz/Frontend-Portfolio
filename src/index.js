@@ -5,11 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import retro from "./themes/retro"
 import {ThemeProvider} from "@mui/material";
-
+import {
+    BrowserRouter
+} from "react-router-dom";
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={retro}>
+        <BrowserRouter>
         <App />
+        </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')

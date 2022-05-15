@@ -4,6 +4,7 @@ import Slider from "../components/Current/Slider/Slider";
 import '@splidejs/splide/dist/css/splide.min.css';
 import {makeStyles} from "@mui/styles";
 import thoughtsutra from '../assets/thoughtsutra.png'
+import Appbar from "../components/Appbar";
 
 const useStyles = makeStyles(theme => ({
     photo: {
@@ -32,12 +33,15 @@ const useStyles = makeStyles(theme => ({
 const Current = () => {
     const theme = useTheme()
     return (
-        <Box px={theme.gutter.appbar}>
+        <Box>
+            <Appbar/>
+            <Box px={theme.gutter.appbar}>
             <Hero/>
             <Education/>
             <Projects/>
             <Contact/>
             <Footer/>
+        </Box>
         </Box>
     );
 };
