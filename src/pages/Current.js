@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Box, Button, Grid, TextField, Typography, useTheme} from "@mui/material";
 import Slider from "../components/Current/Slider/Slider";
 import '@splidejs/splide/dist/css/splide.min.css';
 import {makeStyles} from "@mui/styles";
 import thoughtsutra from '../assets/thoughtsutra.png'
 import Appbar from "../components/Appbar";
+import { useForm } from '@formspree/react';
+import useContact from "../hooks/useContact";
+import {red} from "@mui/material/colors";
 
 const useStyles = makeStyles(theme => ({
     photo: {
@@ -217,9 +220,37 @@ const Work = ({src, name, duration}) => {
 
 const Contact = ()=> {
     const theme = useTheme()
+    const [state, handleSubmit] = useForm('xoqrykpl');
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        phone: '',
+        description: ''
+    })
+
+    const [isFormValid, errors] = useContact({fields: formData, types: ['first_name', 'last_name', 'phone', 'description']})
+
+    const handleFirstName = (e) => {
+        setFormData(prev=> ({...prev, firstName: e.target.value}))
+    }
+    const handleLastName = (e) => {
+        setFormData(prev=> ({...prev, lastName: e.target.value}))
+    }
+
+    const handlePhone = (e) => {
+        setFormData(prev=> ({...prev, phone: e.target.value}))
+    }
+    const handleDescription = (e) => {
+        setFormData(prev=> ({...prev, description: e.target.value}))
+    }
+
+    if(state.succeeded)
+        return <Box width={'60%'} mx={'auto'} id={'work'} py={theme.gutter.section} px={theme.gutter.appbar}> <Typography align={'center'}>
+            Thanks for reaching out to me! I will get back to you ASAP
+        </Typography></Box>
 
     return (<Box id={'work'} py={theme.gutter.section} px={theme.gutter.appbar}>
-        <Box width={'60%'} mx={'auto'}>
+        <Box onSubmit={handleSubmit} component={'form'} width={'60%'} mx={'auto'}>
         <Typography fontFamily={theme.typography.secondFontFamily} variant={'h4'}>
             Contact me
         </Typography>
@@ -228,16 +259,18 @@ const Contact = ()=> {
         </Typography>
 
 <Box display={'flex'} gap={1}>
-        <TextField style={{flexGrow: 1}} label={'First name'} size={'small'} variant={'outlined'}/>
-        <TextField style={{flexGrow: 1}} label={'Last name'} size={'small'} variant={'outlined'}/>
+        <TextField value={formData.firstName} onChange={handleFirstName} name={'first_name'} style={{flexGrow: 1}} label={'First name'} size={'small'} variant={'outlined'}/>
+        <TextField value={formData.lastName} onChange={handleLastName} name={'second_name'} style={{flexGrow: 1}} label={'Last name'} size={'small'} variant={'outlined'}/>
 </Box>
-        <TextField style={{marginTop: 8}} fullWidth label={'Contact'} size={'small'} variant={'outlined'}/>
-        <TextField style={{marginTop: 8}} rows={8} fullWidth={true} label={'Description'} multiline={true} size={'small'} variant={'outlined'}/>
+        <TextField value={formData.phone} onChange={handlePhone} type={'tel'} name={'contact'} style={{marginTop: 8}} fullWidth label={'Contact'} size={'small'} variant={'outlined'}/>
+        <TextField value={formData.description} onChange={handleDescription} name={'description'} style={{marginTop: 8}} rows={8} fullWidth={true} label={'Description'} multiline={true} size={'small'} variant={'outlined'}/>
         <Box textAlign={'right'} mt={1}>
-            <Button variant={'contained'}>
+            <Button disabled={state.submitting || !isFormValid} type={'submit'}  variant={'contained'}>
                 Mail
             </Button>
         </Box>
+            {!isFormValid && errors.map(error=> <Typography color={red.A400} variant={'subtitle2'}> {error} </Typography>)}
+
         </Box>
     </Box>)
 }
