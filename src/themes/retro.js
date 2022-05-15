@@ -27,7 +27,7 @@ export default createTheme({
         MuiTextField: {
             styleOverrides: {
                 root: {
-                    "label.Mui-focused": {
+                    "label": {
                         backgroundColor: 'white !important'
                     }
                 }

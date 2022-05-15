@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
         position: "absolute",
         top: "5%",
         left: "-20%",
-        color: theme.palette.text.secondary,
+        color: theme.palette.grey.A400,
         width: "50px",
         fontWeight: 500
     }
@@ -109,7 +109,7 @@ const Projects = () => {
     const theme = useTheme()
     const classes = useStyles()
     return (
-        <Box id={'projects'} px={theme.gutter.appbar} py={theme.gutter.section}>
+        <Box minHeight={"100vh"} id={'projects'} px={theme.gutter.appbar} py={theme.gutter.section}>
             <Box position={'relative'} textAlign={'center'} width={"60%"} mx={'auto'}>
                 <img width={"100%"} src={thoughtsutra}/>
                 <Box textAlign={'left'} className={classes.photoTitle}>
@@ -148,7 +148,7 @@ const Education = () => {
     const theme = useTheme()
 
     return (
-        <Box id={'education'} textAlign={'center'} py={theme.gutter.section}>
+        <Box minHeight={"100vh"} id={'education'} textAlign={'center'} py={theme.gutter.section}>
             <img  width={"100px"} src={'https://upload.wikimedia.org/wikipedia/en/c/cc/NITK_Emblem.png'} alt={'graduation school'}/>
             <Typography marginTop={2} gutterBottom  fontWeight={600}
                         fontFamily={theme.typography.secondFontFamily} variant={'h5'}>
@@ -221,10 +221,10 @@ const Contact = ()=> {
     return (<Box id={'work'} py={theme.gutter.section} px={theme.gutter.appbar}>
         <Box width={'60%'} mx={'auto'}>
         <Typography fontFamily={theme.typography.secondFontFamily} variant={'h4'}>
-            Contact us
+            Contact me
         </Typography>
         <Typography paragraph variant={'body2'} color={'textSecondary'}>
-            Lorem ipsumm random text to fill up
+            Fill up the form below and I will get to you ASAP
         </Typography>
 
 <Box display={'flex'} gap={1}>
@@ -246,8 +246,8 @@ const Contact = ()=> {
 const Footer = () => {
     const theme = useTheme()
 
-    return <Box bgcolor={'black'}  my={theme.gutter.section} py={2} px={theme.gutter.appbar}>
-        <Typography align={'center'} variant={'body2'} color={'white'}>
+    return <Box  my={theme.gutter.section} py={2} px={theme.gutter.appbar}>
+        <Typography align={'center'} variant={'body2'}>
             Made with lot's of effort and ❤️
         </Typography>
     </Box>
