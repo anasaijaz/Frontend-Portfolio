@@ -15,7 +15,9 @@ const Appbar = () => {
                 <Typography flexGrow={1} fontFamily={theme.typography.secondFontFamily} variant={'h5'}>
                     Web developer
                 </Typography>
-                <Box display={'flex'}>
+                <Box sx={{
+                    display: {xs: 'none', md: 'flex'}
+                }}>
                     <a href={'#education'}>
                     <Typography paddingRight={4} variant={'body2'}>
                         Education

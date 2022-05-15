@@ -10,6 +10,10 @@ import useContact from "../hooks/useContact";
 import {red} from "@mui/material/colors";
 
 const useStyles = makeStyles(theme => ({
+    section: {
+    },
+    snapContainer: {
+    },
     photo: {
         backgroundImage: 'url(https://i.ibb.co/fpS5qj2/IMG-20220515-164431.jpg)',
         height: '100%',
@@ -29,16 +33,22 @@ const useStyles = makeStyles(theme => ({
         left: "-20%",
         color: theme.palette.grey.A400,
         width: "50px",
-        fontWeight: 500
+        fontWeight: 500,
+        [theme.breakpoints.down('md')] : {
+            fontSize: "32px !important"
+        }
     }
 }))
 
 const Current = () => {
     const theme = useTheme()
+    const classes = useStyles()
     return (
         <Box>
             <Appbar/>
-            <Box px={theme.gutter.appbar}>
+            <Box sx={{
+                px: {md: theme.gutter.appbar, xs: 4}
+            }} className={classes.snapContainer}>
             <Hero/>
             <Education/>
             <Projects/>
@@ -54,12 +64,13 @@ const Hero = () => {
     const theme = useTheme()
     const classes = useStyles()
     return (
-        <Box pb={10}>
+        <Box className={classes.section} pb={10}>
 
             <Grid container spacing={8} paddingBottom={3} >
-                <Grid xs={6} item>
-                    <Box className={classes.photo}>
-
+                <Grid xs={12} md={6} item>
+                    <Box className={classes.photo} sx={{
+                        height: {md: "100%", xs: '200px'}
+                    }}>
                     </Box>
                     <Typography pt={1} align={'right'} color={'textSecondary'} variant={"body2"}>
                         Shot by @anuran
@@ -68,7 +79,7 @@ const Hero = () => {
                         12 december 2021
                     </Typography>
                 </Grid>
-                <Grid xs={6} item>
+                <Grid xs={12} md={6} item>
                     <Typography gutterBottom color={'textSecondary'} fontWeight={600}
                                 fontFamily={theme.typography.secondFontFamily} variant={'h4'}>
                         Anas Aijaz
@@ -91,9 +102,9 @@ const Hero = () => {
                     <Typography paragraph  color={'textSecondary'} variant={'body2'}>
                         Always ready to expand my knowledge of tech stacks, quick and keen learner with solid understanding of web technologies such as React, Node Express, Rails and React native
                     </Typography>
-                    <Box textAlign={'right'}>
+                    <Box sx={{textAlign: {xs: 'center', md: 'right'}}} textAlign={'right'}>
                         <a href='#work'>
-                        <Button size={'small'} variant={'contained'}>
+                        <Button  size={'small'} variant={'contained'}>
                             Connect
                         </Button>
                         </a>
@@ -112,8 +123,12 @@ const Projects = () => {
     const theme = useTheme()
     const classes = useStyles()
     return (
-        <Box minHeight={"100vh"} id={'projects'} px={theme.gutter.appbar} py={theme.gutter.section}>
-            <Box position={'relative'} textAlign={'center'} width={"60%"} mx={'auto'}>
+        <Box className={classes.section} minHeight={"100vh"} id={'projects'} px={theme.gutter.appbar} py={theme.gutter.section}>
+            <Box position={'relative'} textAlign={'center'}
+                 sx={{
+                     width: {xs:'100%', md: '60%'}
+                 }}
+                  mx={'auto'}>
                 <img width={"100%"} src={thoughtsutra}/>
                 <Box textAlign={'left'} className={classes.photoTitle}>
                 <Typography letterSpacing={1} variant={'body2'} fontSize={'10px'}>
@@ -149,9 +164,10 @@ const Projects = () => {
 
 const Education = () => {
     const theme = useTheme()
+    const classes = useStyles()
 
     return (
-        <Box minHeight={"100vh"} id={'education'} textAlign={'center'} py={theme.gutter.section}>
+        <Box className={classes.section} minHeight={"100vh"} id={'education'} textAlign={'center'} py={theme.gutter.section}>
             <img  width={"100px"} src={'https://upload.wikimedia.org/wikipedia/en/c/cc/NITK_Emblem.png'} alt={'graduation school'}/>
             <Typography marginTop={2} gutterBottom  fontWeight={600}
                         fontFamily={theme.typography.secondFontFamily} variant={'h5'}>
@@ -220,6 +236,7 @@ const Work = ({src, name, duration}) => {
 
 const Contact = ()=> {
     const theme = useTheme()
+    const classes = useStyles()
     const [state, handleSubmit] = useForm('xoqrykpl');
     const [formData, setFormData] = useState({
         firstName: '',
@@ -245,12 +262,19 @@ const Contact = ()=> {
     }
 
     if(state.succeeded)
-        return <Box width={'60%'} mx={'auto'} id={'work'} py={theme.gutter.section} px={theme.gutter.appbar}> <Typography align={'center'}>
+        return <Box className={classes.section} width={'60%'} mx={'auto'} id={'work'} py={theme.gutter.section}
+                    sx={{
+                        px: {xs:0, md: theme.gutter.appbar}
+                    }}> <Typography align={'center'}>
             Thanks for reaching out to me! I will get back to you ASAP
         </Typography></Box>
 
-    return (<Box id={'work'} py={theme.gutter.section} px={theme.gutter.appbar}>
-        <Box onSubmit={handleSubmit} component={'form'} width={'60%'} mx={'auto'}>
+    return (<Box id={'work'} py={theme.gutter.section} sx={{
+        px: {xs:0, md: theme.gutter.appbar}
+    }}>
+        <Box onSubmit={handleSubmit} component={'form'}   sx={{
+            width: {xs:'100%', md: '60%'}
+        }} mx={'auto'}>
         <Typography fontFamily={theme.typography.secondFontFamily} variant={'h4'}>
             Contact me
         </Typography>
