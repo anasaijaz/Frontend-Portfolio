@@ -16,15 +16,21 @@ const Appbar = () => {
                     Web developer
                 </Typography>
                 <Box display={'flex'}>
+                    <a href={'#education'}>
                     <Typography paddingRight={4} variant={'body2'}>
-                        Present
+                        Education
                     </Typography>
+                    </a>
+                    <a href={'#projects'}>
                     <Typography paddingRight={4} variant={'body2'}>
                         Projects
                     </Typography>
+                    </a>
+                    <a href={'#work'}>
                     <Typography variant={'body2'}>
                         Work
                     </Typography>
+                    </a>
                 </Box>
             </Toolbar>
         </AppBar>

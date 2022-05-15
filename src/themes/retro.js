@@ -24,6 +24,24 @@ export default createTheme({
               }
           }
         },
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    "label.Mui-focused": {
+                        backgroundColor: 'white !important'
+                    }
+                }
+            }
+        },
+        MuiOutlinedInput: {
+            styleOverrides: {
+                root: {
+                    border: '1px solid black',
+                    borderRadius: 0,
+
+                }
+            }
+        },
         MuiButton: {
             styleOverrides: {
                 root: {
@@ -41,10 +59,15 @@ export default createTheme({
     typography:{
         fontFamily:"'Poppins', sans-serif",
         secondFontFamily: "'Bodoni Moda', serif",
-        fontSize:14
+    },
+    palette: {
+      primary: {
+          main: '#00c853'
+      }
     },
     gutter:{
         appbar: '48px',
+        section: '32px'
     }
 });
 

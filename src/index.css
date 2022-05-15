@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 code {
@@ -15,4 +16,9 @@ code {
 .splide__slide {
   display: flex;
   align-items: center;
+}
+
+a {
+  text-decoration: unset;
+  color: unset;
 }

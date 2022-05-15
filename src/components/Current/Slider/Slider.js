@@ -18,7 +18,7 @@ const POTRAITS = [
     },
     {
         id: 4,
-        src: "https://www.themost10.com/wp-content/uploads/Audrey-Hepburn-1.jpg"
+        src: "https://static.scientificamerican.com/sciam/cache/file/AED4B8AD-C991-489A-B903CFB507473278_source.jpg?w=590&h=800&51D525E1-00E3-4CDC-AEFAD44D6485F14B"
     },
     {
         id: 5,
@@ -54,7 +54,7 @@ const Slider = () => {
                 gap: '30px',
                 autoplay: true,
                 type: 'loop',
-                interval: 2000,
+                interval: 3000,
                 pagination: false
             }}>
                 {POTRAITS.map(Potrait=> <PotraitSlide  key={Potrait.id}  src={Potrait.src}/>)}
