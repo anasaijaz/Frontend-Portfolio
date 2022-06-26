@@ -25,16 +25,20 @@ a {
 
 .appear-enter {
   opacity: 0;
+  transform: translateY(-15px);
 }
 .appear-enter-active {
   opacity: 1;
-  transition: opacity 300ms;
+  transform: translateY(0px);
+  transition: all 300ms;
 }
 
 .appear-exit {
   opacity: 1;
+  transform: translateY(0);
 }
 .appear-exit-active {
   opacity: 0;
-  transition: opacity 300ms;
+  transform: translateY(-15px);
+  transition: all 300ms;
 }
