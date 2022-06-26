@@ -1,13 +1,20 @@
 import React, {useState} from 'react';
-import {Box, Button, Grid, TextField, Typography, useTheme} from "@mui/material";
+import {Box, Button, Grid, IconButton, TextField, Typography, useTheme} from "@mui/material";
 import Slider from "../components/Current/Slider/Slider";
 import '@splidejs/splide/dist/css/splide.min.css';
 import {makeStyles} from "@mui/styles";
 import thoughtsutra from '../assets/thoughtsutra.png'
+import vevesta from '../assets/vevesta.png'
+import titan from '../assets/titan.png'
+import racing from '../assets/racing.png'
+import payatu from '../assets/payatu.jpg'
+
 import Appbar from "../components/Appbar";
 import { useForm } from '@formspree/react';
 import useContact from "../hooks/useContact";
 import {red} from "@mui/material/colors";
+import {FiHeart} from "react-icons/fi";
+import clsx from "clsx";
 
 const useStyles = makeStyles(theme => ({
     section: {
@@ -16,9 +23,8 @@ const useStyles = makeStyles(theme => ({
     },
     photo: {
         backgroundImage: 'url(https://i.ibb.co/fpS5qj2/IMG-20220515-164431.jpg)',
-        height: '100%',
+        height: '300px',
         backgroundSize: 'cover',
-
         backgroundRepeat: 'no-repeat'
     },
     photoTitle: {
@@ -37,6 +43,27 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.down('md')] : {
             fontSize: "32px !important"
         }
+    },
+    project: {
+        padding: theme.spacing(1),
+        cursor: 'pointer',
+        marginInline: theme.spacing(1),
+        borderRadius: "100px",
+        fontFamily: 'poppins',
+        fontSize: "14px",
+        color: theme.palette.text.secondary,
+        whiteSpace: "nowrap"
+    },
+    active: {
+        backgroundColor: 'tan'
+    },
+    image: {
+        width: "100%",
+        objectFit: 'cover',
+        height: "350px"
+    },
+    overflowX: {
+        overflowX: "auto"
     }
 }))
 
@@ -46,7 +73,7 @@ const Current = () => {
     return (
         <Box>
             <Appbar/>
-            <Box sx={{
+            <Box mt={18} sx={{
                 px: {md: theme.gutter.appbar, xs: 4}
             }} className={classes.snapContainer}>
             <Hero/>
@@ -69,7 +96,7 @@ const Hero = () => {
             <Grid container spacing={8} paddingBottom={3} >
                 <Grid xs={12} md={6} item>
                     <Box className={classes.photo} sx={{
-                        height: {md: "100%", xs: '200px'}
+                        height: {md: "350px", xs: '200px'}
                     }}>
                     </Box>
                     <Typography pt={1} align={'right'} color={'textSecondary'} variant={"body2"}>
@@ -80,35 +107,33 @@ const Hero = () => {
                     </Typography>
                 </Grid>
                 <Grid xs={12} md={6} item>
+                    <Box alignItems={'center'} justifyContent={'space-between'} display={'flex'}>
+                        <Box >
                     <Typography gutterBottom color={'textSecondary'} fontWeight={600}
                                 fontFamily={theme.typography.secondFontFamily} variant={'h4'}>
                         Anas Aijaz
                     </Typography>
 
-                    <Typography paragraph color={'textSecondary'} variant={'body2'} fontWeight={300}>
-                        Passionate about tech stacks
-                    </Typography>
-
-                    <Typography paragraph color={'textSecondary'} variant={'body2'}>
-                        I am a second year under graduate a NIT K. Implementing complex workflows and designing beautiful UI for startups and companies. I have an experience of over 1.5 years
-                    </Typography>
-
-                    <Typography paragraph  color={'textSecondary'} variant={'body2'}>
-                        Worked with companies like Titan and Aditya Birla Finance for building reliable products used by thousands of people around the country under the mentorship of CTO of Thought Sutra
-                    </Typography>
-                    <Typography paragraph  color={'textSecondary'} variant={'body2'}>
-                        Tries to find an elegant solution to the most difficult problems
-                    </Typography>
-                    <Typography paragraph  color={'textSecondary'} variant={'body2'}>
-                        Always ready to expand my knowledge of tech stacks, quick and keen learner with solid understanding of web technologies such as React, Node Express, Rails and React native
-                    </Typography>
-                    <Box sx={{textAlign: {xs: 'center', md: 'right'}}} textAlign={'right'}>
-                        <a href='#work'>
-                        <Button  size={'small'} variant={'contained'}>
-                            Connect
-                        </Button>
-                        </a>
+                        </Box>
+                        <IconButton>
+                            <FiHeart color={'black'} size={'24px'} onClick={()=> window.location = '#work'}/>
+                        </IconButton>
                     </Box>
+
+                    <Typography paragraph color={'textSecondary'} variant={'body2'} fontWeight={300}>
+                        Passionate about startups
+                    </Typography>
+                    <Typography paragraph color={'textSecondary'} variant={'body2'}>
+                        I am a second year under graduate a NIT K. Implementing complex workflows and designing beautiful UI for startups and companies.
+                        Worked with companies like Titan and Aditya Birla Finance for building reliable products used by thousands of people around the country under the mentorship of CTO of Thought Sutra
+                        Tries to find an elegant solution to the most difficult problems
+
+                    </Typography>
+
+                    <Typography align={'right'} paragraph  color={'textSecondary'} variant={'body2'}>
+                        Always ready to expand my knowledge of tech stacks, quick and keen learner with solid understanding of web technologies such as React, Node Express, Rails and React native
+                        I have over 2 years of expereince in web development along with designing
+                    </Typography>
                 </Grid>
             </Grid>
 
@@ -119,43 +144,100 @@ const Hero = () => {
     )
 }
 
+const PROJECTS = [
+    {
+        name: "Thought Sutra",
+        title: "Six months",
+        description: "Learnt new tools and skills under the guidance of Associate Team lead Nagarro Implementation of Input Sanitization, Builder pattern, Integration with S3 bucket, Payment gateway integration coupon management system, Google OAuth and various features such as forums, and admin panel. Redesigned LMS with Material UI principles and incorporating typescript in codebase Used p5.js to create animated self-growing tree with message adding feature. Used Mongo DB aggregation framework and created an OTP authentication system. Deployed to AWS EC2",
+        image: thoughtsutra,
+        super: "Created using React JS",
+        sub: "Designed using figma"
+    },
+    {
+        name: "Titan",
+        title: "8000+ Users worldwide",
+        description: "Built Tested and Deployed a highly reliable social media with OTP authentication used by titan employees on Christmas, loved by thousands of users and got the project extended for several months. Intelligently designed db schema and load balancers to handle request loads and concurrency issues",
+        image: titan,
+        super: "Created using p5 JS",
+        sub: "Designed using figma"
+    },
+    {
+        name: "Vevesta",
+        title: "Aesthetic and Useful",
+        description:`Learnt new tools and skills and worked on diverse fields and features under the
+        guidance of Amazon SDE II CTO
+        Frontend (Vue) Landing page, Login/Sign up page, Solutions, Design changes,
+    Integrating new features TipTap editor and building high-level custom features on
+    top of it, implemented lazy loading, proposed and implemented a brand new
+    design
+    Tracking: Integrated mixpanel to track simple and complex activities of a user`,
+        image: vevesta,
+        super: "Created using Vue JS",
+        sub: "Designed using figma"
+    },
+    {
+        name: "Payatu",
+        title: "Just Amazing",
+        description: "-",
+        image: payatu,
+        super: "Created using Next JS",
+        sub: "Designed using figma"
+    },
+    {
+        name: "NITK Racing",
+        title: "Brought Sponsors",
+        description: "Designed and Developed using react js and anime.js, The new design of NIT K racing changed the way sponsors looked at NITK racing team",
+        image: racing,
+        super: "Created using React JS",
+        sub: "Designed using figma"
+    }]
+
 const Projects = () => {
     const theme = useTheme()
     const classes = useStyles()
+    const [active, setActive] = useState(0)
+    const activeProject = PROJECTS[active]
     return (
-        <Box className={classes.section} minHeight={"100vh"} id={'projects'} px={theme.gutter.appbar} py={theme.gutter.section}>
+        <Box className={classes.section} minHeight={"100vh"} id={'projects'} sx={{
+            px:{xs: 0,
+                md:theme.gutter.appbar
+            }
+        }} py={theme.gutter.section}>
+            <Box className={classes.overflowX} px={2} py={2} mb={5}>
+
+                {PROJECTS.map((project, index)=> (<span onClick={() => setActive(index)} className={clsx({
+                    [classes.project]: true,
+                    [classes.active]: active === index
+                })}>{project.name}</span>))}
+            </Box>
             <Box position={'relative'} textAlign={'center'}
                  sx={{
                      width: {xs:'100%', md: '60%'}
                  }}
                   mx={'auto'}>
-                <img width={"100%"} src={thoughtsutra}/>
-                <Box textAlign={'left'} className={classes.photoTitle}>
+                <img className={classes.image} src={activeProject.image}/>
+                <Box sx={{
+                    display: {xs: 'none', md: 'block'}
+                }} textAlign={'left'} className={classes.photoTitle}>
                 <Typography letterSpacing={1} variant={'body2'} fontSize={'10px'}>
-                    Designed using figma
+                    {activeProject.sub}
                 </Typography>
                     <Typography color={'textSecondary'} variant={'subtitle2'}>
-                        Created using React JS
+                        {activeProject.super}
                     </Typography>
                 </Box>
 
-                <Typography fontFamily={theme.typography.secondFontFamily}  className={classes.title}
+                <Typography sx={{
+                    display: {xs: 'none', md: 'block'}
+                }} fontFamily={theme.typography.secondFontFamily}  className={classes.title}
                             align={"left"} variant={"h1"} marginTop={3}>
-                    Thought Sutra
+                    {activeProject.name}
                 </Typography>
              <Typography gutterBottom align={"left"} variant={"h5"} marginTop={3}>
-                 Six months
+                 {activeProject.title}
              </Typography>
                 <Typography align={"left"} variant={"subtitle2"} color={'textSecondary'}>
-                    Learnt new tools and skills under the guidance of Associate Team lead Nagarro
-                    Implementation of Input Sanitization, Builder pattern,
-                    Integration with S3 bucket, Payment gateway integration coupon management
-                    system, Google OAuth and various features such as forums, and admin panel.
-                    Redesigned LMS with Material UI principles and incorporating typescript in
-                    codebase Used p5.js to create animated self-growing tree with message adding
-                    feature. Used Mongo DB aggregation framework and created an OTP
-                    authentication system. Deployed to AWS EC2
-
+                    {activeProject.description}
                 </Typography>
             </Box>
         </Box>
@@ -191,9 +273,9 @@ const Education = () => {
                 </Grid>
                 <Grid item xs={2}>
                     <Work
-                        name={'NITK Racing'}
-                        duration={'4 months'}
-                        src={'https://photo.isu.pub/nitkracing/photo_large.jpg'}/>
+                        name={'Payatu'}
+                        duration={'6 months'}
+                        src={'https://payatu.com/static/media/Payatu_logo.png'}/>
                 </Grid>
                 <Grid item xs={3}>
 
@@ -222,7 +304,7 @@ const Education = () => {
 const Work = ({src, name, duration}) => {
     return (
         <Box mb={5} textAlign={'center'}>
-            <img height={'50px'} src={src} alt={'work'}/>
+            <img width={'60px'} src={src} alt={'work'}/>
             <Typography variant={'subtitle2'} color={'textSecondary'}>
                 {name}
             </Typography>
