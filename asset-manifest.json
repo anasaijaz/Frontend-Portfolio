@@ -1,16 +1,20 @@
 {
   "files": {
-    "main.css": "/Frontend-Portfolio/static/css/main.c70c7607.css",
-    "main.js": "/Frontend-Portfolio/static/js/main.ec9d73dd.js",
+    "main.css": "/Frontend-Portfolio/static/css/main.a5ef25cc.css",
+    "main.js": "/Frontend-Portfolio/static/js/main.34690a8b.js",
     "static/js/787.1ed0c42c.chunk.js": "/Frontend-Portfolio/static/js/787.1ed0c42c.chunk.js",
+    "static/media/titan.png": "/Frontend-Portfolio/static/media/titan.fe4ee24d352b0fe0017c.png",
     "static/media/thoughtsutra.png": "/Frontend-Portfolio/static/media/thoughtsutra.0cff4d27e6a88a7aa257.png",
+    "static/media/racing.png": "/Frontend-Portfolio/static/media/racing.8d8d3358ce8c8963b6dc.png",
+    "static/media/vevesta.png": "/Frontend-Portfolio/static/media/vevesta.70f6912a3fdcf7d4f4f0.png",
+    "static/media/payatu.jpg": "/Frontend-Portfolio/static/media/payatu.7828a0e7fce2e7c47141.jpg",
     "index.html": "/Frontend-Portfolio/index.html",
-    "main.c70c7607.css.map": "/Frontend-Portfolio/static/css/main.c70c7607.css.map",
-    "main.ec9d73dd.js.map": "/Frontend-Portfolio/static/js/main.ec9d73dd.js.map",
+    "main.a5ef25cc.css.map": "/Frontend-Portfolio/static/css/main.a5ef25cc.css.map",
+    "main.34690a8b.js.map": "/Frontend-Portfolio/static/js/main.34690a8b.js.map",
     "787.1ed0c42c.chunk.js.map": "/Frontend-Portfolio/static/js/787.1ed0c42c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c70c7607.css",
-    "static/js/main.ec9d73dd.js"
+    "static/css/main.a5ef25cc.css",
+    "static/js/main.34690a8b.js"
   ]
 }
