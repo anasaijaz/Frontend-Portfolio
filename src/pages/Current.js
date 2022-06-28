@@ -294,20 +294,24 @@ const Project = ({project, active, ...rest}) => {
             </Typography>
         </Box>
         <CSSTransition timeout={500} classNames={"TITLE"} in={active}>
-        <Typography sx={{
+        <Typography  sx={{
             display: {xs: 'none', md: 'block'}
         }} fontFamily={theme.typography.secondFontFamily}  className={classes.title}
                     align={"left"} variant={"h1"} marginTop={3}>
             {project.name}
         </Typography>
         </CSSTransition>
-        <CSSTransition timeout={500} classNames={"TITLE"} in={active}>
-        <Typography gutterBottom align={"left"} variant={"h5"} marginTop={3}>
+        <CSSTransition  timeout={700} classNames={"TITLE"} in={active}>
+        <Typography style={{
+            transitionDelay: "200ms"
+        }} gutterBottom align={"left"} variant={"h5"} marginTop={3}>
             {project.title}
         </Typography>
         </CSSTransition>
 
-        <CSSTransition timeout={500} classNames={"TITLE"} in={active}>
+        <CSSTransition style={{
+            transitionDelay: "300ms"
+        }} timeout={700} classNames={"TITLE"} in={active}>
 
         <Typography align={"left"} variant={"subtitle2"} color={'textSecondary'}>
             {project.description}
