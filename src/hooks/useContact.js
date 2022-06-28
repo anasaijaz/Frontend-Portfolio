@@ -20,13 +20,13 @@ function validate(field, type){
         case 'email':
            res = {
                valid: validator.isEmail(field),
-               error: 'Incorrect email provided'
+               error: 'Please provide an email address'
            }
            break;
         case 'phone':
             res = {
                 valid: validator.isMobilePhone(field, 'en-IN'),
-                error: 'Incorrect Indian contact number'
+                error: 'Please provide an Indian phone number'
             }
             break;
         case 'first_name':
@@ -43,8 +43,8 @@ function validate(field, type){
             break;
         case 'description':
             res = {
-                valid: field.length > 30,
-                error: 'Description is smaller than 30 words'
+                valid: field.split(" ").length > 10,
+                error: 'Please provide a little longer description'
             }
             break;
         default:

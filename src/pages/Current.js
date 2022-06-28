@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Box, Button, Grid, IconButton, TextField, Typography, useTheme} from "@mui/material";
+import React, {useEffect, useState} from 'react';
+import {Box, Button, Grid, Icon, IconButton, TextField, Typography, useTheme} from "@mui/material";
 import Slider from "../components/Current/Slider/Slider";
 import '@splidejs/splide/dist/css/splide.min.css';
 import {makeStyles} from "@mui/styles";
@@ -8,17 +8,17 @@ import vevesta from '../assets/vevesta.png'
 import titan from '../assets/titan.png'
 import racing from '../assets/racing.png'
 import payatu from '../assets/payatu.jpg'
+import "./Current.css"
 
 import Appbar from "../components/Appbar";
 import { useForm } from '@formspree/react';
 import useContact from "../hooks/useContact";
 import {red} from "@mui/material/colors";
-import {FiHeart} from "react-icons/fi";
+import {FiHeart, FiPause, FiPlay} from "react-icons/fi";
 import clsx from "clsx";
+import {CSSTransition, Transition} from "react-transition-group";
 
 const useStyles = makeStyles(theme => ({
-    section: {
-    },
     snapContainer: {
     },
     photo: {
@@ -52,7 +52,8 @@ const useStyles = makeStyles(theme => ({
         fontFamily: 'poppins',
         fontSize: "14px",
         color: theme.palette.text.secondary,
-        whiteSpace: "nowrap"
+        whiteSpace: "nowrap",
+        transition: "all 300ms ease"
     },
     active: {
         backgroundColor: 'tan'
@@ -60,10 +61,19 @@ const useStyles = makeStyles(theme => ({
     image: {
         width: "100%",
         objectFit: 'cover',
-        height: "350px"
+        height: "350px",
+        [theme.breakpoints.down("md")]: {
+            height: "auto"
+        }
     },
     overflowX: {
         overflowX: "auto"
+    },
+    hiddenProject: {
+        display: "none",
+    },
+    activeProject: {
+        display: "block !important"
     }
 }))
 
@@ -177,8 +187,8 @@ const PROJECTS = [
     },
     {
         name: "Payatu",
-        title: "Just Amazing",
-        description: "-",
+        title: "Carefully built",
+        description: "Building a cyber security tool, responsible for major developments in backend",
         image: payatu,
         super: "Created using Next JS",
         sub: "Designed using figma"
@@ -196,52 +206,115 @@ const Projects = () => {
     const theme = useTheme()
     const classes = useStyles()
     const [active, setActive] = useState(0)
-    const activeProject = PROJECTS[active]
+    const [paused, setPaused] = useState(false)
+
+    const changeProject = (index) => {
+        if(index === active)
+            return;
+
+        setActive(index)
+    }
+
+    const nextProject = () => {
+        setActive((current)=> current === PROJECTS.length - 1 ? 0 : current + 1 )
+    }
+
+    useEffect(()=> {
+        const interval = setInterval(()=> {
+            if(!paused)
+                nextProject()
+        } , 3000)
+        return () => clearInterval(interval)
+    }, [paused])
+
+
     return (
-        <Box className={classes.section} minHeight={"100vh"} id={'projects'} sx={{
+        <Box className={classes.section}  id={'projects'} sx={{
             px:{xs: 0,
                 md:theme.gutter.appbar
-            }
+            },
+            minHeight:{xs: "100vh", md: "100vh"}
         }} py={theme.gutter.section}>
-            <Box className={classes.overflowX} px={2} py={2} mb={5}>
+            <Box   mb={5} display={'flex'} alignItems={'center'} justifyContent={'space-between'} gap={3}>
+            <Box width={'max-content'} className={classes.overflowX} py={2} px={2}>
 
-                {PROJECTS.map((project, index)=> (<span onClick={() => setActive(index)} className={clsx({
+                {PROJECTS.map((project, index)=> (<span onClick={() => changeProject(index)} className={clsx({
                     [classes.project]: true,
                     [classes.active]: active === index
                 })}>{project.name}</span>))}
-            </Box>
-            <Box position={'relative'} textAlign={'center'}
-                 sx={{
-                     width: {xs:'100%', md: '60%'}
-                 }}
-                  mx={'auto'}>
-                <img className={classes.image} src={activeProject.image}/>
-                <Box sx={{
-                    display: {xs: 'none', md: 'block'}
-                }} textAlign={'left'} className={classes.photoTitle}>
-                <Typography letterSpacing={1} variant={'body2'} fontSize={'10px'}>
-                    {activeProject.sub}
-                </Typography>
-                    <Typography color={'textSecondary'} variant={'subtitle2'}>
-                        {activeProject.super}
-                    </Typography>
-                </Box>
 
-                <Typography sx={{
-                    display: {xs: 'none', md: 'block'}
-                }} fontFamily={theme.typography.secondFontFamily}  className={classes.title}
-                            align={"left"} variant={"h1"} marginTop={3}>
-                    {activeProject.name}
-                </Typography>
-             <Typography gutterBottom align={"left"} variant={"h5"} marginTop={3}>
-                 {activeProject.title}
-             </Typography>
-                <Typography align={"left"} variant={"subtitle2"} color={'textSecondary'}>
-                    {activeProject.description}
-                </Typography>
+            </Box>
+                <Box flexGrow={1}>
+                    <div style={{
+                        height: "2px",
+                        backgroundColor: "tan",
+                        animation: paused ? "unset" : "normal 3s infinite progress ease",
+                    }} className={"INDICATOR"}/>
+                </Box>
+                <IconButton onClick={()=> paused ? setPaused(false): setPaused(true)} style={{backgroundColor:"tan"}}>
+                    {paused? <FiPlay/>:<FiPause/>}
+                </IconButton>
+            </Box>
+            <Box display={'relative'}>
+                {PROJECTS.map((project, index)=> <Project active={index === active} project={project}/>)}
             </Box>
         </Box>
     )
+}
+
+
+
+const Project = ({project, active, ...rest}) => {
+    const theme = useTheme()
+    const classes = useStyles()
+
+    return (  <Box left={"50%"}
+                   style={{transform: "translateX(-50%)"}}
+                   position={'absolute'}
+                   textAlign={'center'}
+                   className={clsx({
+                       [classes.activeProject]: active,
+                       [classes.hiddenProject]: true
+                   })}
+                   sx={{
+                       width: {xs:'80%', md: '60%'}
+                   }}
+                   mx={'auto'}>
+        <CSSTransition timeout={500} classNames={"PROJECT"} in={active}>
+           <img className={classes.image} src={project.image}/>
+        </CSSTransition>
+        <Box sx={{
+            display: {xs: 'none', md: 'block'}
+        }} textAlign={'left'} className={classes.photoTitle}>
+            <Typography letterSpacing={1} variant={'body2'} fontSize={'10px'}>
+                {project.sub}
+            </Typography>
+            <Typography color={'textSecondary'} variant={'subtitle2'}>
+                {project.super}
+            </Typography>
+        </Box>
+        <CSSTransition timeout={500} classNames={"TITLE"} in={active}>
+        <Typography sx={{
+            display: {xs: 'none', md: 'block'}
+        }} fontFamily={theme.typography.secondFontFamily}  className={classes.title}
+                    align={"left"} variant={"h1"} marginTop={3}>
+            {project.name}
+        </Typography>
+        </CSSTransition>
+        <CSSTransition timeout={500} classNames={"TITLE"} in={active}>
+        <Typography gutterBottom align={"left"} variant={"h5"} marginTop={3}>
+            {project.title}
+        </Typography>
+        </CSSTransition>
+
+        <CSSTransition timeout={500} classNames={"TITLE"} in={active}>
+
+        <Typography align={"left"} variant={"subtitle2"} color={'textSecondary'}>
+            {project.description}
+        </Typography>
+        </CSSTransition>
+
+    </Box>)
 }
 
 const Education = () => {
@@ -249,7 +322,9 @@ const Education = () => {
     const classes = useStyles()
 
     return (
-        <Box className={classes.section} minHeight={"100vh"} id={'education'} textAlign={'center'} py={theme.gutter.section}>
+        <Box  minHeight={"100vh"} id={'education'} textAlign={'center'} py={theme.gutter.section}
+
+        >
             <img  width={"100px"} src={'https://upload.wikimedia.org/wikipedia/en/c/cc/NITK_Emblem.png'} alt={'graduation school'}/>
             <Typography marginTop={2} gutterBottom  fontWeight={600}
                         fontFamily={theme.typography.secondFontFamily} variant={'h5'}>
