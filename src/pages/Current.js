@@ -70,7 +70,8 @@ const useStyles = makeStyles(theme => ({
         }
     },
     overflowX: {
-        overflowX: "auto"
+        overflowX: "auto",
+        scrollBehavior: 'smooth'
     },
     hiddenProject: {
         display: "none",
@@ -119,7 +120,7 @@ const Hero = () => {
     const onScroll = () => {
         const distance = window.scrollY
         const portraitNode = portraitRef.current
-        portraitNode.style.transform = `translate(-50%,${distance * 0.4}px)`
+        portraitNode.style.transform = `translate(-50%,${distance * 0.3}px)`
         textRef.current.style.transform = `translate(0px,-${distance * 0.3}px)`
     }
 
@@ -243,6 +244,7 @@ const Projects = () => {
     const classes = useStyles()
     const [active, setActive] = useState(0)
     const [paused, setPaused] = useState(false)
+    const indicatorRef = useRef(null)
 
     const changeProject = (index) => {
         if(index === active)
@@ -255,13 +257,20 @@ const Projects = () => {
         setActive((current)=> current === PROJECTS.length - 1 ? 0 : current + 1 )
     }
 
+    const scrollProjectIndicator = () => {
+        const indicatorNode = indicatorRef.current
+        indicatorNode.scrollTo(active === PROJECTS.length - 1 ? 0 : (active + 1)*100 , 0)
+    }
+
     useEffect(()=> {
         const interval = setInterval(()=> {
-            if(!paused)
+            if(!paused){
                 nextProject()
+                scrollProjectIndicator()
+            }
         } , 3000)
         return () => clearInterval(interval)
-    }, [paused])
+    }, [paused, active])
 
 
     return (
@@ -272,7 +281,7 @@ const Projects = () => {
             minHeight:{xs: "100vh", md: "100vh"}
         }} py={theme.gutter.section}>
             <Box   mb={5} display={'flex'} alignItems={'center'} justifyContent={'space-between'} gap={3}>
-            <Box width={'max-content'} className={classes.overflowX} py={2} px={2}>
+            <Box ref={indicatorRef} width={'max-content'} className={classes.overflowX} py={2} px={2}>
 
                 {PROJECTS.map((project, index)=> (<span onClick={() => changeProject(index)} className={clsx({
                     [classes.project]: true,
@@ -376,36 +385,36 @@ const Education = () => {
             </Typography>
 
             <Grid container>
-                <Grid  item xs={2}>
+                <Grid  item xs={12} md={2}>
                     <Work
                         name={'Thought Sutra'}
                         duration={'8 months'}
                         src={'https://media-exp1.licdn.com/dms/image/C4E0BAQHv-j9vFA8u0g/company-logo_200_200/0/1635853599472?e=2159024400&v=beta&t=3n7jVkgAtJILsrFMyOkNHYneV33C6YZAq4wpJX7qY-o'}/>
 
                 </Grid>
-                <Grid item xs={8}>
+                <Grid item xs={0} md={8}>
 
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={12} md={2}>
                     <Work
                         name={'Payatu'}
                         duration={'6 months'}
                         src={'https://payatu.com/static/media/Payatu_logo.png'}/>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={0} md={3}>
 
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={12} md={2}>
                     <Work
                         name={'Vevesta Labs'}
                         duration={'4 months'}
                         src={'https://media-exp1.licdn.com/dms/image/C4E0BAQG36CD4H74yjQ/company-logo_200_200/0/1634834767135?e=2147483647&v=beta&t=uBfHRWrldI0WlaOzAkeiGIY9p6XAvBsTBdEJ1fH99j0'}/>
                 </Grid>
 
-                <Grid item xs={2}>
+                <Grid item xs={0} md={2}>
 
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={12} md={2}>
                     <Work
                         name={'E-Cell'}
                         duration={'1 month'}
