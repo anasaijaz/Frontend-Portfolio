@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Box, Button, Grid, Icon, IconButton, TextField, Typography, useTheme} from "@mui/material";
 import Slider from "../components/Current/Slider/Slider";
 import '@splidejs/splide/dist/css/splide.min.css';
@@ -9,11 +9,11 @@ import titan from '../assets/titan.png'
 import racing from '../assets/racing.png'
 import payatu from '../assets/payatu.jpg'
 import "./Current.css"
-
+import potrait from '../assets/potrait.png'
 import Appbar from "../components/Appbar";
 import { useForm } from '@formspree/react';
 import useContact from "../hooks/useContact";
-import {red} from "@mui/material/colors";
+import {blue, red} from "@mui/material/colors";
 import {FiHeart, FiPause, FiPlay} from "react-icons/fi";
 import clsx from "clsx";
 import {CSSTransition, Transition} from "react-transition-group";
@@ -22,10 +22,13 @@ const useStyles = makeStyles(theme => ({
     snapContainer: {
     },
     photo: {
-        backgroundImage: 'url(https://i.ibb.co/fpS5qj2/IMG-20220515-164431.jpg)',
-        height: '300px',
+        height: '350px',
+        overflow: 'hidden',
+        position: 'relative',
+        objectFit: 'cover',
         backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat'
+        backgroundPosition: 'center',
+        backgroundImage: 'url(https://cdn.wallpapersafari.com/73/85/2VYtaW.jpg)'
     },
     photoTitle: {
         position: "absolute",
@@ -74,6 +77,16 @@ const useStyles = makeStyles(theme => ({
     },
     activeProject: {
         display: "block !important"
+    },
+    portrait: {
+        position: 'absolute',
+        left: '50%',
+        bottom: '-100px',
+        width: '60%',
+        transform: 'translateX(-50%)',
+        [theme.breakpoints.down('md')]: {
+            bottom: '-50px',
+        }
     }
 }))
 
@@ -100,6 +113,23 @@ const Current = () => {
 const Hero = () => {
     const theme = useTheme()
     const classes = useStyles()
+    const portraitRef = useRef(null)
+    const textRef = useRef(null)
+
+    const onScroll = () => {
+        const distance = window.scrollY
+        const portraitNode = portraitRef.current
+        portraitNode.style.transform = `translate(-50%,${distance * 0.4}px)`
+        textRef.current.style.transform = `translate(0px,-${distance * 0.3}px)`
+    }
+
+    useEffect(()=> {
+
+        window.addEventListener("scroll", onScroll);
+
+        return () => window.removeEventListener("scroll", onScroll);
+    }, [])
+
     return (
         <Box className={classes.section} pb={10}>
 
@@ -108,6 +138,12 @@ const Hero = () => {
                     <Box className={classes.photo} sx={{
                         height: {md: "350px", xs: '200px'}
                     }}>
+                        <Typography sx={{
+                            fontSize: {xs: '3.5rem', md: '6rem'},
+                        }} variant={'h1'} color={blue.A400} ref={textRef} mt={1} fontWeight='700' align='center' >
+                            React.JS Developer
+                        </Typography>
+                        <img src={potrait} ref={portraitRef} className={classes.portrait}/>
                     </Box>
                     <Typography pt={1} align={'right'} color={'textSecondary'} variant={"body2"}>
                         Shot by @anuran
